@@ -34,6 +34,9 @@ get_top_words <- function(df, number_top) {
     return(plot_out)
 }
 
+
+#TODO document function
+
 get_sentiments_plot <- function(df, number_top) {
   plot_out <- tryCatch(
     {

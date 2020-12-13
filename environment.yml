@@ -1,0 +1,33 @@
+name: null
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - certifi=2020.12.5=py36ha15d459_0
+  - pip=20.3.1=pyhd8ed1ab_0
+  - python=3.6.12=h39d44d4_0_cpython
+  - python_abi=3.6=1_cp36m
+  - setuptools=49.6.0=py36hd36e781_2
+  - vc=14.1=h869be7e_1
+  - vs2015_runtime=14.16.27012=h30e32a0_2
+  - wheel=0.36.1=pyhd3deb0d_0
+  - wincertstore=0.2=py36h9f0ad1d_1005
+  - pip:
+    - chardet==3.0.4
+    - click==7.1.2
+    - dataclasses==0.8
+    - filelock==3.0.12
+    - idna==2.10
+    - joblib==0.17.0
+    - numpy==1.19.4
+    - packaging==20.8
+    - pyparsing==2.4.7
+    - regex==2020.11.13
+    - requests==2.25.0
+    - sacremoses==0.0.43
+    - six==1.15.0
+    - tokenizers==0.9.4
+    - tqdm==4.54.1
+    - transformers==4.0.1
+    - urllib3==1.26.2
+prefix: C:\Users\Asus\modulai_assigment\renv\python\condaenvs\renv-python
