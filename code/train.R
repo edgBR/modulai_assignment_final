@@ -51,6 +51,19 @@ modelDef <- function(mode, engine) {
   return(model)
 }
 
+xgbGrid <- function(training_data) {
+  grid <- grid_latin_hypercube(
+    tree_depth(),
+    min_n(),
+    loss_reduction(),
+    sample_size = sample_prop(),
+    finalize(mtry(), training_data),
+    learn_rate(),
+    size = 30
+  )
+  return(grid)
+}
+
 # modelParam <- function(model_def) {
 #   if(model_def$engine == 'xgboost') {
 #   model_param <- model_def %>%

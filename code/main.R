@@ -12,6 +12,7 @@ library(textrecipes)
 library(discrim)
 library(tune)
 library(dials)
+library(vip)
 
 set.seed(2020)
 log_level(level = "INFO")
@@ -46,6 +47,9 @@ option_list <- list(
 
 argument_parser <- parse_args(OptionParser(option_list=option_list))
 
+
+######### PROCESSING PIPELINE
+
 twitter_data_small <- loadData(input_path = argument_parser$input_data, 
                          file_name = argument_parser$file_name)
 twitter_data_big <-  loadData(input_path = argument_parser$input_data, 
@@ -58,32 +62,19 @@ twitter_data_big <-  loadData(input_path = argument_parser$input_data,
 processed_data <- processorBasic(df = twitter_data_big,
                                  sample_size = argument_parser$samples)
 
-## move to EDA?
-
 sentiment_results <- sentimentAnalyser(cleaned_df = processed_data, 
                                        engine = "bing")
 
+######### TRAINING & HPO PIPELINE
 
 training_configuration <- trainRecipe(processed_data, 
             max_tokens = 400)
-
 xgb_model <- modelDef(mode = "classification", 
                       engine = "xgboost")
-
-xgb_grid <- grid_latin_hypercube(
-  tree_depth(),
-  min_n(),
-  loss_reduction(),
-  sample_size = sample_prop(),
-  finalize(mtry(), training_configuration[[2]]),
-  learn_rate(),
-  size = 30
-)
-
-
+xgb_grid <- xgbGrid(training_data = training_configuration[[2]])
 
 folds <- vfold_cv(training_configuration[[2]], # Not the best way of doing this
-                  v = 5,
+                  v = 3,
                   strata = "is_positive",
                   repeats = 1)
 
@@ -101,7 +92,7 @@ xgb_search <- tune_grid(
   metrics = metric_set(accuracy, roc_auc)
 )
 
-
+xgb_predictions <- collect_predictions(xgb_search)
 
 best_accuracy <- select_best(xgb_search, "roc_auc")
 
@@ -109,4 +100,22 @@ final_model <- finalize_workflow(
   model_workflow,
   best_accuracy
   )
+
+########### EVALUATION PIPELINE
+
+final_result <- last_fit(final_model, training_configuration[[1]], 
+           metrics = metric_set(accuracy, roc_auc))
+
+
+final_model %>%
+  fit(data = training_configuration[[2]]) %>%
+  pull_workflow_fit() %>%
+  vip(geom = "point")
+
+
+
+########### MODEL SAVING
+
+
+
 

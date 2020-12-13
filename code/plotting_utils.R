@@ -12,6 +12,7 @@ get_top_words <- function(df, number_top) {
     plot_out <- tryCatch(
       {
         df %>% 
+          unnest_tokens(word, text_stripped) %>% 
           count(word, sort = TRUE) %>% 
           top_n(number_top) %>% 
           mutate(word = reorder(word, n)) %>% 
@@ -59,5 +60,23 @@ get_sentiments_plot <- function(df, number_top) {
       log_info("Plot succeded")
     }
   )
+  return(plot_out)
+}
+
+
+xgboost_hpo_results <- function(grid_search) {
+  plot_out <- tryCatch({
+    grid_search %>%
+      collect_metrics() %>%
+      filter(.metric == "roc_auc") %>%
+      select(mean, mtry:sample_size) %>%
+      pivot_longer(mtry:sample_size,
+                   values_to = "value",
+                   names_to = "parameter") %>%
+      ggplot(aes(value, mean, color = parameter)) +
+      geom_point(alpha = 0.8, show.legend = FALSE) +
+      facet_wrap( ~ parameter, scales = "free_x") +
+      labs(x = NULL, y = "AUC")
+  })
   return(plot_out)
 }
