@@ -11,7 +11,9 @@ library(tidymodels)
 library(textrecipes)
 library(discrim)
 library(tune)
+library(dials)
 
+set.seed(2020)
 log_level(level = "INFO")
 
 source("get_data.R")
@@ -62,38 +64,49 @@ sentiment_results <- sentimentAnalyser(cleaned_df = processed_data,
                                        engine = "bing")
 
 
-
 training_configuration <- trainRecipe(processed_data, 
-            min_tokens = 100, 
-            max_tokens = 400, 
-            step_tokens = 5)
+            max_tokens = 400)
 
-set.seed(2020)
+xgb_model <- modelDef(mode = "classification", 
+                      engine = "xgboost")
 
-svm_spec <- svm_rbf() %>%
-  set_mode("classification") %>%
-  set_engine("liquidSVM")
+xgb_grid <- grid_latin_hypercube(
+  tree_depth(),
+  min_n(),
+  loss_reduction(),
+  sample_size = sample_prop(),
+  finalize(mtry(), training_configuration[[2]]),
+  learn_rate(),
+  size = 30
+)
+
 
 
 folds <- vfold_cv(training_configuration[[2]], # Not the best way of doing this
+                  v = 5,
+                  strata = "is_positive",
                   repeats = 1)
 
 model_workflow <- workflow() %>%
   add_recipe(training_configuration[[4]]) %>% # Not the best way of doing this
-  add_model(svm_spec)
+  add_model(xgb_model)
 
-model_resamples_tunning <- tune_grid(
+doParallel::registerDoParallel()
+
+xgb_search <- tune_grid(
   model_workflow,
-  folds,
-  grid = training_configuration[[5]], # Not the best way of doing this
+  resamples = folds,
+  grid = xgb_grid,
   control = control_resamples(save_pred = TRUE),
-  metrics = metric_set(accuracy, sensitivity, specificity)
+  metrics = metric_set(accuracy, roc_auc)
 )
 
-best_accuracy <- select_best(model_resamples_tunning, "roc_auc")
+
+
+best_accuracy <- select_best(xgb_search, "roc_auc")
 
 final_model <- finalize_workflow(
-  model_resamples_tunning,
+  model_workflow,
   best_accuracy
   )
 
