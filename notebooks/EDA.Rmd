@@ -1,0 +1,29 @@
+---
+title: "EDA"
+author: "Edgar Bahilo"
+date: "13/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Investigations of sentiment data set using tidytext
+
+Before proceding to a brute-force modelling approach it is decided to perform a basic text analysis of the dataset. This is mainly because it was 2 years since the last time that the author worked with NLP. Also the author considers that an understanding of the data set might help him in diagnosing why the model is underperforming or not.
+
+```{r cars}
+
+source("../get_data.R")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
