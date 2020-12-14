@@ -65,18 +65,46 @@ get_sentiments_plot <- function(df, number_top) {
 
 
 xgboost_hpo_results <- function(grid_search) {
-  plot_out <- tryCatch({
-    grid_search %>%
-      collect_metrics() %>%
-      filter(.metric == "roc_auc") %>%
-      select(mean, mtry:sample_size) %>%
-      pivot_longer(mtry:sample_size,
-                   values_to = "value",
-                   names_to = "parameter") %>%
-      ggplot(aes(value, mean, color = parameter)) +
-      geom_point(alpha = 0.8, show.legend = FALSE) +
-      facet_wrap( ~ parameter, scales = "free_x") +
-      labs(x = NULL, y = "AUC")
-  })
+  plot_out <- tryCatch(
+    {
+      grid_search %>%
+        collect_metrics() %>%
+        filter(.metric == "roc_auc") %>%
+        select(mean, mtry:sample_size) %>%
+        pivot_longer(mtry:sample_size,
+                     values_to = "value",
+                     names_to = "parameter") %>%
+        ggplot(aes(value, mean, color = parameter)) +
+        geom_point(alpha = 0.8, show.legend = FALSE) +
+        facet_wrap( ~ parameter, scales = "free_x") +
+        labs(x = NULL, y = "AUC")
+    }, error = function(e){
+      log_error(e)
+      return(NA)
+    }, warning = function(w){
+      log_warn(w)
+    }, finally = {
+      log_info("Plot succeded")
+    }
+  )
   return(plot_out)
 }
+
+variable_importance_xgboost <- function(model_workflow, training_data) {
+  plot_out <- tryCatch(
+    {
+      model_workflow %>% 
+        fit(data = training_data) %>%
+        pull_workflow_fit() %>%
+        vip(geom = "point")
+    }, error = function(e){
+      log_error(e)
+      return(NA)
+    }, warning = function(w){
+      log_warn(w)
+    }, finally = {
+      log_info("Plot succeded")
+    }
+  )
+}
+  
