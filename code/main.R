@@ -65,8 +65,6 @@ twitter_data_big <- loadData(input_path = argument_parser$input_data,
 processed_data <- processorBasic(df = twitter_data_big,
                                  sample_size = argument_parser$samples)
 
-sentiment_results <- sentimentAnalyser(cleaned_df = processed_data, 
-                                       engine = "bing")
 
 ######### TRAINING & HPO PIPELINE
 
@@ -117,6 +115,13 @@ model_object <- pull_workflow_fit(final_fit)$fit
 saveRDS(model_object, 
         file = paste0(argument_parser$model, "xgboost.rds"))
 
+saveRDS(final_fit, 
+        file = paste0(argument_parser$model, "xgboost+recipes.rds"))
+
+vroom::vroom_write(xgb_predictions, 
+                   path = paste0(argument_parser$model, "resampling_metrics.csv" 
+                                                  ))
+
 ########### EVALUATION PIPELINE - COMPARISON WITH BART
 
 twitter_data_small <- twitter_data_small %>% 
@@ -124,7 +129,7 @@ twitter_data_small <- twitter_data_small %>%
   mutate(is_positive = as.factor(is_positive))
 
 twitter_data_small <- twitter_data_small %>% 
-  mutate(xgboost_pred = predict(final_fit, twitter_data_small)$.pred_class) %>% 
+  mutate(xgboost_pred = as.numeric(predict(final_fit, twitter_data_small)$.pred_class)) %>% 
   mutate(binary_bart = case_when(
     bart_is_positive >= 0.5~1,
     bart_is_positive < 0.5~0

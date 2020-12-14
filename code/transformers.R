@@ -6,8 +6,8 @@ library(text2vec)
 
 
 transformer = reticulate::import('transformers')
-physical_devices = tf$config$list_physical_devices('CPU')
-#tf$config$experimental$set_memory_growth(physical_devices[[1]],TRUE) CUDA does not work
+physical_devices = tf$config$list_physical_devices('GPU')
+tf$config$experimental$set_memory_growth(physical_devices[[1]],TRUE) #CUDA does not work
 
 tf$keras$backend$set_floatx('float32')
 

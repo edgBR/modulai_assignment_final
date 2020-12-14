@@ -13,6 +13,7 @@ get_top_words <- function(df, number_top) {
       {
         df %>% 
           unnest_tokens(word, text_stripped) %>% 
+          anti_join(stop_words) %>% 
           count(word, sort = TRUE) %>% 
           top_n(number_top) %>% 
           mutate(word = reorder(word, n)) %>% 
@@ -50,7 +51,7 @@ get_sentiments_plot <- function(df, number_top) {
         facet_wrap(~sentiment, scales = "free_y") +
         labs(title = "Tweets according to basic sentiment engine",
              y = "Contribution to sentiment",
-             x = "Null")
+             x = "Token")
     }, error = function(e){
       log_error(e)
       return(NA)

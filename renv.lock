@@ -9,7 +9,7 @@
     ]
   },
   "Python": {
-    "Version": "3.6.12",
+    "Version": "3.8.6",
     "Type": "conda",
     "Name": null
   },
@@ -83,6 +83,20 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "125dc7a0ed375eb68c0ce533b48d291f"
+    },
+    "RcppArmadillo": {
+      "Package": "RcppArmadillo",
+      "Version": "0.10.1.2.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "1a885965adade4b8629c478a3b3c2cf7"
+    },
+    "RhpcBLASctl": {
+      "Package": "RhpcBLASctl",
+      "Version": "0.20-137",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "fb135751ed3f00f33890826823ebe332"
     },
     "SQUAREM": {
       "Package": "SQUAREM",
@@ -196,6 +210,13 @@
       "Repository": "CRAN",
       "Hash": "abea3384649ef37f60ef51ce002f3547"
     },
+    "config": {
+      "Package": "config",
+      "Version": "0.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "76268942467fa8ba171e9aa34203ee2a"
+    },
     "cpp11": {
       "Package": "cpp11",
       "Version": "0.2.4",
@@ -223,6 +244,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "2b7d10581cc730804e9ed178c8374bd6"
+    },
+    "data.table": {
+      "Package": "data.table",
+      "Version": "1.13.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "626afb25b020646f53105e6485e695c6"
     },
     "desc": {
       "Package": "desc",
@@ -259,6 +287,13 @@
       "Repository": "RSPM",
       "Hash": "341199b929dcd50cb818b9e00642e8cb"
     },
+    "doParallel": {
+      "Package": "doParallel",
+      "Version": "1.0.16",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "2dc413572eb42475179bfe0afabd2adf"
+    },
     "dplyr": {
       "Package": "dplyr",
       "Version": "1.0.2",
@@ -294,12 +329,26 @@
       "Repository": "CRAN",
       "Hash": "dad6793a5a1f73c8e91f1a1e3e834b05"
     },
+    "float": {
+      "Package": "float",
+      "Version": "0.2-4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "01bb3c22054651b108ebaad2b5d7b590"
+    },
     "foreach": {
       "Package": "foreach",
       "Version": "1.5.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "e32cfc0973caba11b65b1fa691b4d8c9"
+    },
+    "forge": {
+      "Package": "forge",
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "b98a63142d3aa952bb551968fea8a56c"
     },
     "fs": {
       "Package": "fs",
@@ -384,6 +433,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "be6a2b3529928bd803d1c437d1d43152"
+    },
+    "gridExtra": {
+      "Package": "gridExtra",
+      "Version": "2.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "7d7f283939f563670a697165b2cf5560"
     },
     "gtable": {
       "Package": "gtable",
@@ -483,6 +539,13 @@
       "Repository": "RSPM",
       "Hash": "98138e0994d41508c7a6b84a0600cfcb"
     },
+    "keras": {
+      "Package": "keras",
+      "Version": "2.3.0.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "c5f906575d6ba05a86f1989e56f94f83"
+    },
     "knitr": {
       "Package": "knitr",
       "Version": "1.30",
@@ -510,6 +573,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "4f337c8dcd7fdf0df89ee74c4f5d94d5"
+    },
+    "lgr": {
+      "Package": "lgr",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "bad9ff2e1effda68351caf123e1a6eac"
     },
     "lhs": {
       "Package": "lhs",
@@ -573,6 +643,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "e87a35ec73b157552814869f45a63aa3"
+    },
+    "mlapi": {
+      "Package": "mlapi",
+      "Version": "0.1.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "264a15aa9f96be8bb52edc2b9fb9876a"
     },
     "modeldata": {
       "Package": "modeldata",
@@ -763,6 +840,13 @@
       "Repository": "CRAN",
       "Hash": "b5510c50c7f31d453c385c7b460af2b9"
     },
+    "reticulate": {
+      "Package": "reticulate",
+      "Version": "1.18",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "fbd35cac6ae7554d0e4f440bca1adf3a"
+    },
     "rlang": {
       "Package": "rlang",
       "Version": "0.4.9",
@@ -797,6 +881,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "a05b5f1136fb3e22efe51e85369c041c"
+    },
+    "rsparse": {
+      "Package": "rsparse",
+      "Version": "0.4.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "b3125524d1aab09f6fdc807bfce138e3"
     },
     "rstudioapi": {
       "Package": "rstudioapi",
@@ -854,12 +945,26 @@
       "Repository": "CRAN",
       "Hash": "b227d13e29222b4574486cfcbde077fa"
     },
+    "tensorflow": {
+      "Package": "tensorflow",
+      "Version": "2.2.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "dc6e900d988101077b89a49cd801ba90"
+    },
     "testthat": {
       "Package": "testthat",
       "Version": "3.0.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "13298cedd051cb7b8a8972d380b559a6"
+    },
+    "text2vec": {
+      "Package": "text2vec",
+      "Version": "0.6",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "4dd6c4ff3bd5be6bdd50793f37179450"
     },
     "textdata": {
       "Package": "textdata",
@@ -874,6 +979,27 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "a539a63471b14adc4d8efbca22df927a"
+    },
+    "tfdatasets": {
+      "Package": "tfdatasets",
+      "Version": "2.2.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "9bc25eeb2268930c388247d3eb7e1a65"
+    },
+    "tfestimators": {
+      "Package": "tfestimators",
+      "Version": "1.9.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "3a0a8205a941c553814fadc437111166"
+    },
+    "tfruns": {
+      "Package": "tfruns",
+      "Version": "1.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "ca89f75e59187aaadf658645118e3935"
     },
     "tibble": {
       "Package": "tibble",
@@ -959,6 +1085,13 @@
       "Repository": "CRAN",
       "Hash": "d25c5bea636cf892edbfd64fc3d20c20"
     },
+    "vip": {
+      "Package": "vip",
+      "Version": "0.2.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "ca6163837c7c626b16f7911f73bc4d8c"
+    },
     "viridisLite": {
       "Package": "viridisLite",
       "Version": "0.3.0",
@@ -1028,6 +1161,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "e16ed675886deba4b47441672cedfd54"
+    },
+    "zeallot": {
+      "Package": "zeallot",
+      "Version": "0.1.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "ee9b643aa8331c45d8d82eb3a137c9bc"
     },
     "zip": {
       "Package": "zip",
