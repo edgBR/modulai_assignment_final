@@ -17,6 +17,7 @@ trainRecipe <- function(df, max_tokens) {
       twitter_rec <- twitter_rec %>% 
         step_tokenize(text_stripped) %>%
         step_stopwords(text_stripped) %>%
+        step_stem(text_stripped) %>%
         step_ngram(text_stripped, num_tokens = 3, min_num_tokens = 1) %>% 
         step_tokenfilter(text_stripped, max_tokens = max_tokens) %>% 
         step_tfidf(text_stripped)
