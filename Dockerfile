@@ -17,8 +17,6 @@ RUN apt-get install -y --no-install-recommends \
     ca-certificates \
     libssl-dev \
     libxml2-dev \
-    unixodbc-dev \
-    unixodbc \
     curl \
     libsqliteodbc \
     libcurl4-gnutls-dev
