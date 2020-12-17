@@ -13,7 +13,7 @@ library(textdata)
 
 processorBasic <- function(df, sample_size) {
   tryCatch(
-    {
+    df_out <- {
       df <- sample_n(df, size = sample_size)
       log_info(paste0("Selecting ", sample_size, " observations"))
       df <- df %>% filter(!str_detect(message, "^RT")) 
@@ -36,12 +36,11 @@ processorBasic <- function(df, sample_size) {
       log_info("Forced lowercase")
       df_out <- df_out %>% mutate(is_positive = as.factor(is_positive))
     }, error = function(e){
-      log_error(e)
-      return(NA)
+      message(e)
+     return(NA)
     }, warning = function(w){
-      log_warn(w)
-    }, finally = {
-      log_info("Processing Data Succeded")
+      message(w)
+      return(NULL)
     }
     )
 return(df_out)

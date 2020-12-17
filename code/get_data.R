@@ -8,12 +8,12 @@ loadData <- function(input_path, file_name) {
   df_out <- tryCatch(
     {
       vroom(paste0(input_path, "/", file_name))
-      log_info("Reading data succeded")
     }, error = function(e){
-      log_error(e)
+      message(e)
       return(NA)
     }, warning = function(w){
-      log_warn(w)
+      message(w)
+      return(NULL)
     }
   )
   return(df_out)

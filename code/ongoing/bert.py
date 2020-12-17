@@ -23,7 +23,13 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 PRE_TRAINED_MODEL_NAME = 'bert-base-cased'
 tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL_NAME)
 
-data = pd.read_csv("")
+data_clean = pd.read_csv(filepath_or_buffer="data/input/dataset_small_w_bart_preds.csv")
 
-tokens = tokenizer.tokenize(sample_txt)
+text = data_clean["message_clean"].astype(str).tolist()
+marked_text = []
+for e in text:
+    marked_text.append("[CLS] " + str(e) + " [SEP]")
+print(*marked_text)
+
+tokens = tokenizer.tokenize( data_clean["message_clean"].astype(str).tolist())
 token_ids = tokenizer.convert_tokens_to_ids(tokens)

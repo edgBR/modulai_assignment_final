@@ -111,15 +111,6 @@ vroom::vroom_write(xgb_predictions,
 
 ########### EVALUATION PIPELINE - COMPARISON WITH BART
 
-twitter_data_small <- twitter_data_small %>% 
-  rename(text_stripped = message_clean) %>% 
-  mutate(is_positive = as.factor(is_positive))
-
-twitter_data_small <- twitter_data_small %>% 
-  mutate(xgboost_pred = as.numeric(predict(final_fit, twitter_data_small)$.pred_class)) %>% 
-  mutate(binary_bart = case_when(
-    bart_is_positive >= 0.5~1,
-    bart_is_positive < 0.5~0
-  ))
-
+predictions <- evaluate(final_fit, 
+                        twitter_data_small)
 
