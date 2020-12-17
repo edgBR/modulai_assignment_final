@@ -1,3 +1,11 @@
+library(stopwords)
+library(tidymodels)
+library(textrecipes)
+library(discrim)
+library(tune)
+library(dials)
+library(yardstick)
+
 trainRecipe <- function(df, max_tokens) {
   tryCatch(
     {

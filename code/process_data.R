@@ -1,7 +1,14 @@
+library(dplyr)
+library(tidyr)
+library(tidytext)
+library(stringr)
+library(textdata)
+
 #'@author Edgar Bahilo Rodríguez
 #'@param input_path The directory where the input data is stored
 #'@param file_name the file that we want to load
 #'@return A tibble dataframe containing the twitter data
+
 
 
 processorBasic <- function(df, sample_size) {

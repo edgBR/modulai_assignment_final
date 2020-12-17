@@ -1,4 +1,5 @@
 library(ggplot2)
+library(vip)
 
 #'@author Edgar Bahilo Rodríguez
 #'@param df The directory where the input data is stored
