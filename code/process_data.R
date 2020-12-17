@@ -19,8 +19,8 @@ processorBasic <- function(df, sample_size) {
       df <- df %>% filter(!str_detect(message, "^RT")) 
       log_info("Removed retweets")
       df <- df %>% 
-        mutate(text = str_remove_all(message, "@[[:alnum:]]+")) %>%
-        mutate(text = str_remove_all(text, "#[[:alnum:]]+"))
+        mutate(text = str_remove_all(message, "@[[:alnum:]]+")) %>% #this is not working as expected
+        mutate(text = str_remove_all(text, "#[[:alnum:]]+")) # this is not working as expected
       log_info("Removed @usernames and hashtags")
       df <- df %>% mutate(text = str_replace_all(text, "&amp;", "and"))
       log_info("Changing & by and")

@@ -35,6 +35,7 @@ source("../code/get_data.R")
 source("../code/process_data.R")
 source("../code/plotting_utils.R")
 source("../code/train.R")
+source("../code/evaluate.R")
 ```
 
 First we investigate the class balance in the original dataset:
@@ -47,6 +48,7 @@ twitter_data_big <- loadData(input_path = "../data/input/",
 ```{r}
 ggplot(twitter_data_big, aes(is_positive))+geom_bar() + xlab("Class") + ylab("Number of entities")
 ```
+
 The data set seems perfectly balanced so we do not need to worry about class imbalance.
 
 
@@ -68,6 +70,7 @@ We get the top words of the sample dataset, this time we remove the stop words h
 ```{r}
 get_top_words(processed_data, 6)
 ```
+
 We also perform a very vanilla sentiment analisys:
 
 ```{r message=FALSE, warning=FALSE}
@@ -77,6 +80,7 @@ sentiment_results <- sentimentAnalyser(cleaned_df = processed_data,
 ```{r}
 get_sentiments_plot(sentiment_results,number_top = 8)
 ```
+
 We can see how a simple sentiment engine is actually getting some words in the rigth box (omitting of course any kind of context or additional text corpus information) but this could be an indicator that an ML or DL algorithm will be able to produce some results.
 
 
@@ -121,35 +125,25 @@ As we trained XGBoost as binary classifier our predictions will be 0 or 1. Meanw
 twitter_data_small <- loadData(input_path = "../data/input/", 
                                     file_name = "dataset_small_w_bart_preds.csv")
 
-twitter_data_small <- twitter_data_small %>% 
-  rename(text_stripped = message_clean) %>% 
-  mutate(is_positive = as.factor(is_positive))
+predictions <- evaluate(load_model, 
+                        twitter_data_small)
 
-twitter_data_small <- twitter_data_small %>% 
-  mutate(xgboost_pred = as.numeric(predict(load_model, twitter_data_small)$.pred_class)) %>% 
-  mutate(binary_bart = case_when(
-    bart_is_positive >= 0.5~1,
-    bart_is_positive < 0.5~0
-  ))
-```
-
-```{r}
 ```
 
 
 ```{r}
-twitter_data_small %>% head()
+predictions %>% head()
 ```
 
 We then compute the ROC metrics in this new dataset for the two models
 
 ```{r}
-roc_auc(twitter_data_small, truth = is_positive, binary_bart)
+roc_auc(predictions, truth = "is_positive", bart_is_positive)
 ```
 
 ```{r}
-roc_auc(twitter_data_small, truth = is_positive, xgboost_pred)
+roc_auc(predictions, truth = is_positive, xgboost_is_positive)
 ```
 
-Based on the ROC_AUC metrics BART is overperforming xgboost. However as it was mentioned before this is not a 100% perfect comparison.
+Based on the ROC_AUC metrics BART is overperforming xgboost. No confussion metrix is presented as there is no additional information about the effects of true/false positives and true/false negatives.
 
