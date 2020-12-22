@@ -1,4 +1,4 @@
-# The road of a time series guy in Natual Language Processing
+# A learning project to become better and better in NLP
 
 When running interactively from the main folder of the project please set:
 
