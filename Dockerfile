@@ -1,12 +1,13 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
-ENV R_BASE_VERSION 4.1
+ENV R_BASE_VERSION 4.2
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     rm -rf /var/lib/apt/lists/*
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-RUN add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/'
+RUN add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+RUN add-apt-repository 'deb http://ftp.acc.umu.se/ubuntu/ focal-backports main restricted universe'
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y --no-install-recommends \    
