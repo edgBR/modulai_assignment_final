@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ENV R_BASE_VERSION 4.2
+ENV R_BASE_VERSION 4.1.1
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     rm -rf /var/lib/apt/lists/*
@@ -12,10 +12,10 @@ RUN add-apt-repository 'deb http://ftp.acc.umu.se/ubuntu/ focal-backports main r
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y --no-install-recommends \    
     apt-utils \
-    r-base-core \
-	  r-base \
-	  r-base-dev \
-	  r-recommended \
+    r-base-core=${R_BASE_VERSION} \
+	  r-base=${R_BASE_VERSION} \
+	  r-base-dev=${R_BASE_VERSION} \
+	  r-recommended=${R_BASE_VERSION} \
     ca-certificates \
     libssl-dev \
     libxml2-dev \
